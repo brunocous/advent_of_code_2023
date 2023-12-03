@@ -10,7 +10,7 @@ class gameSet(NamedTuple):
 
 class singleSet(NamedTuple):
     red: int = 0
-    blue: int = 0 
+    blue: int = 0
     green: int = 0
 
     def is_valid(self, game_set: gameSet) -> bool:
@@ -38,6 +38,21 @@ def read_line(line: str) -> int:
     return id
 
 
+def compute_power(line: str) -> int:
+    parts = line.split(":")
+    if len(parts) != 2:
+        return 0
+    sets = [
+        singleSet(**{x.split()[1]: int(x.split()[0]) for x in single_set.split(",")})
+        for single_set in parts[1].split(";")
+    ]
+    maximums = [0] * 3
+    for s in sets:
+        for i, v in enumerate((s.red, s.blue, s.green)):
+            maximums[i] = max(maximums[i], v)
+    return maximums[0] * maximums[1] * maximums[2]
+
+
 def read_file(path: Path) -> Generator[None, str, None]:
     with open(path, "r") as f:
         for line in f:
@@ -48,7 +63,10 @@ def main():
     # read file
     path = Path(__file__).parent / "input.txt"
     total = sum(read_line(line) for line in read_file(path))
-    print(total)
+    print(f"part 1: {total}")
+
+    total_part2 = sum(compute_power(line) for line in read_file(path))
+    print(f"part 2: {total_part2}")
 
 
 if __name__ == "__main__":
