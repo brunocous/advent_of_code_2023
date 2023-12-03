@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "advent-of-code-2023"
+version = "0.1.0"
+description = ""
+authors = ["Bruno Coussement <mgt_cloud_dde_coubr@luminus.be>"]
+readme = "README.md"
+packages = [{include = "advent_of_code_2023"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
